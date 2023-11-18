@@ -1,0 +1,1737 @@
+#:import Factory kivy.factory.Factory
+
+ScreenManager:
+    id: screen_manager
+    MenuScreen:
+        id: menu_screen
+        name: 'Меню'
+        manager: screen_manager
+    Sotrudnik:
+        id: sotrudnik_screen
+        name: 'Сотрудники'
+        manager: screen_manager
+    Recipe:
+        id: recipe_screen
+        name: 'Рецепты'
+        manager: screen_manager
+    Provider:
+        id: provider_screen
+        name: 'Поставщики'
+        manager: screen_manager
+    Price:
+        id: price_screen
+        name: 'Прайслист'
+        manager: screen_manager
+    Calories:
+        id: calories_screen
+        name: 'Компьютер сотрудника'
+        manager: screen_manager
+    Prod_Rec:
+        id: prod_rec_screen
+        name: 'Программы на компьютере сотрудника'
+        manager: screen_manager
+
+<MenuScreen>
+
+    BoxLayout:
+        padding: 25, 0, 0, 0
+
+        BoxLayout:
+            orientation: "vertical"
+            padding: 25, 25, 25, 40
+            spacing: 10
+
+            Button:
+                color: 0.34, 0.14, 0.43
+                on_press: app.connect_table_sotrudnik()
+                on_release: root.manager.current = 'Сотрудники'
+                text: "Сотрудники"
+                background_color: 0.67, 0.97, 0.7, 1
+                background_normal: ''
+                font_size: 24
+
+            Button:
+                color: 0.34, 0.14, 0.43
+                text: "Компьютер"
+                font_size: 24
+                disabled: False
+                background_color: 0.67, 0.97, 0.7, 1
+                background_normal: ''
+                on_press: app.connect_table_recipe()
+                on_release: root.manager.current = 'Рецепты'
+
+            Button:
+                color:0.34, 0.14, 0.43
+                text: "Программы"
+                font_size: 24
+                disabled: False
+                background_color: 0.67, 0.97, 0.7, 1
+                background_normal: ''
+                on_release: root.manager.current = 'Поставщики'
+                on_press: app.connect_table_provider()
+
+
+            Button:
+                color: 0.34, 0.14, 0.43
+                text: "Таможня"
+                font_size: 24
+                disabled: False
+                background_color: 0.67, 0.97, 0.7, 1
+                background_normal: ''
+                on_press: app.input_data_price()
+                on_release: root.manager.current = 'Прайслист'
+
+            Button:
+                color: 0.34, 0.14, 0.43
+                text: "Компьютер сотрудника"
+                font_size: 24
+                disabled: False
+                background_color: 0.67, 0.97, 0.7, 1
+                background_normal: ''
+                on_press: app.connect_table_calories()
+                on_release: root.manager.current = 'Калории'
+
+            Button:
+                color: 0.34, 0.14, 0.43
+                text: "Программы на компьютере сотрудника"
+                font_size: 24
+                disabled: False
+                background_color: 0.67, 0.97, 0.7, 1
+                background_normal: ''
+                on_press: app.connect_table_prodrec()
+                on_release: root.manager.current = 'Рецепты продуктов'
+<Sotrudnik>
+    BoxLayout:
+        orientation: "vertical"
+        padding: 5
+        id: bl_1
+
+        GridLayout:
+            cols: 2
+            id: gl_1
+
+            BoxLayout:
+                orientation: "vertical"
+                padding: 5
+                background_color: 0.67, 0.97, 0.7, 1
+                background_normal: ''
+                id: bl_2
+
+                BoxLayout:
+                    padding: 5
+                    size_hint: 1, .1
+
+                    Label:
+                        font_size: 14
+                        text: "Компьютер"
+                        color: 0.34, 0.14, 0.43
+
+                    Label:
+                        font_size: 14
+                        text: "Сотрудник"
+                        color: 0.34, 0.14, 0.43
+
+                    Label:
+                        font_size: 14
+                        text: "Таможня"
+                        color: 0.34, 0.14, 0.43
+
+                    Label:
+                        font_size: 14
+                        text: ""
+                        color: 0.34, 0.14, 0.43
+                        size_hint: .2, 1
+                    Label:
+                        font_size: 14
+                        text: ""
+                        color: 0.34, 0.14, 0.43
+                        size_hint: .2, 1
+                BoxLayout:
+
+                    GridLayout:
+                        cols: 3
+                        id: gl_2
+
+                    GridLayout:
+                        cols: 2
+                        id: gl_3
+                        size_hint: .1, 1
+
+                BoxLayout:
+                    padding: 5
+                    spacing: 5
+                    size_hint: 1, .1
+
+                    Button:
+                        color: 0, 0, 0, 1
+                        text: "<-"
+                        font_size: 14
+                        disabled: False
+                        on_press: app.to_x_page(current_page, '-')
+                        color: 0.34, 0.14, 0.43
+                        background_color: 0.67, 0.97, 0.7, 1
+                        background_normal: ''
+
+                    Button:
+                        color: 0, 0, 0, 1
+                        text: "1"
+                        font_size: 14
+                        disabled: False
+                        on_press: app.to_first_page(current_page)
+                        color: 0.34, 0.14, 0.43
+                        background_color: 0.67, 0.97, 0.7, 1
+                        background_normal: ''
+
+                    Label:
+                        id: current_page
+                        font_size: 20
+                        text: "1"
+                        color: 0.34, 0.14, 0.43
+
+                    Button:
+                        id: last_page
+                        color: 0, 0, 0, 1
+                        text: "1"
+                        font_size: 14
+                        disabled: False
+                        on_press: app.to_last_page(current_page)
+                        color: 0.34, 0.14, 0.43
+                        background_color: 0.67, 0.97, 0.7, 1
+                        background_normal: ''
+
+                    Button:
+                        color: 0, 0, 0, 1
+                        text: "->"
+                        font_size: 14
+                        disabled: False
+                        on_press: app.to_x_page(current_page, '+')
+                        color: 0.34, 0.14, 0.43
+                        background_color: 0.67, 0.97, 0.7, 1
+                        background_normal: ''
+                        radius: [40]
+
+
+
+            BoxLayout:
+                orientation: "vertical"
+                padding: 9
+                size_hint: .2, 1
+
+                Label:
+                    id: number_record
+                    size_hint: 1, .1
+                    text: "Кол-во записей: 0"
+                    color: 0.34, 0.14, 0.43, 1
+
+                Label:
+                    size_hint: 1, .1
+                    text: "Кол-во на страницу:"
+                    color: 0.34, 0.14, 0.43, 1
+
+
+                BoxLayout:
+                    size_hint: 1, .1
+                    spacing: 5
+
+                    Label:
+                        size_hint: 1, .1
+                        text: "5"
+                        color: 0.34, 0.14, 0.43, 1
+
+                    Label:
+                        size_hint: 1, .1
+                        text: "10"
+                        color: 0.34, 0.14, 0.43, 1
+                    Label:
+                        size_hint: 1, .1
+                        text: "20"
+                        color: 0.34, 0.14, 0.43, 1
+
+
+
+                BoxLayout:
+                    size_hint: 1, .1
+                    spacing: 5
+
+                    CheckBox:
+                        group:"num_record"
+                        active: "down"
+                        on_active: app.to_x_record(5)
+                        color: 0.34, 0.14, 0.43
+
+                    CheckBox:
+                        group:"num_record"
+                        on_active: app.to_x_record(10)
+                        color: 0.34, 0.14, 0.43
+
+                    CheckBox:
+                        group:"num_record"
+                        on_active: app.to_x_record(20)
+                        color: 0.34, 0.14, 0.43
+
+                Button:
+                    color: 0, 0, 0, 1
+                    text: "Добавить сотрудника"
+                    font_size: 14
+                    disabled: False
+                    on_press:Factory.EnterPopup().open()
+                    color: 0.34, 0.14, 0.43
+                    background_color: 0.67, 0.97, 0.7, 1
+                    background_normal: ''
+                    size_hint: 1, .15
+
+                Widget:
+                    text: ""
+
+<EnterPopup@Popup>:
+    background: ''
+    background_color: 0.67, 0.97, 0.7, 1
+    title_color: 0.2, 0.36, 0.21, 1
+    auto_dismiss: False
+    title: "Добавление данных"
+    size_hint: .6, .6
+
+    BoxLayout:
+        orientation: "vertical"
+        padding: 25, 0, 0, 0
+        GridLayout:
+            cols: 2
+            id: gl_1
+
+            BoxLayout:
+                orientation: "vertical"
+                padding: 5
+                background_color: 1, 0, 0, 1
+                background_normal: ''
+                id: bl_2
+
+                BoxLayout:
+                    padding: 5
+                    size_hint: 1, .05
+
+                    Label:
+                        font_size: 14
+                        text: "Компьютер"
+                        color: 0.34, 0.14, 0.43
+
+                    Label:
+                        font_size: 14
+                        text: "Сотрудник"
+                        color: 0.34, 0.14, 0.43
+
+                    Label:
+                        font_size: 14
+                        text: "Таможня"
+                        color: 0.34, 0.14, 0.43
+
+                BoxLayout:
+                    TextInput:
+                        id: file_name1
+                        multiline: False
+                        size_hint: 1, .3
+
+                    TextInput:
+                        id: file_name2
+                        multiline: False
+                        size_hint: 1, .3
+
+                    TextInput:
+                        id: file_name3
+                        multiline: False
+                        size_hint: 1, .3
+
+        Button:
+            color: 0.2, 0.36, 0.21
+            background_color: 0.67, 0.97, 0.7, 1
+            background_normal: ''
+            text: "Ввод"
+            font_size: 20
+            disabled: False
+            size_hint: 1, .18
+            on_press: app.controller.add_sotrudnik(file_name1, file_name2, file_name3, status)
+
+        Label:
+            id: status
+            text: "Статус"
+            color: 0.34, 0.14, 0.43
+            font_size: 20
+            size_hint: 1, .2
+
+        Button:
+            color: 0.2, 0.36, 0.21
+            background_color: 0.67, 0.97, 0.7, 1
+            background_normal: ''
+            text: "Выход"
+            font_size: 20
+            disabled: False
+            size_hint: 1, .18
+            on_press: root.dismiss()
+
+<EditClientPopup@Popup>:
+    background: ''
+    background_color: 0.92, 0.75, 1
+    title_color: 0.34, 0.14, 0.43, 1
+    auto_dismiss: False
+    title: "Редактирование продукта"
+    size_hint: 1, .8
+    name: 'edit_client_popup'
+    id: edit_client_popup
+
+    BoxLayout:
+        orientation: "vertical"
+        padding: 10
+        id: box_1
+
+        Label:
+            font_size: 28
+            text: "Введите данные"
+            color: 0.34, 0.14, 0.43, 1
+            size_hint: 1, .1
+
+        BoxLayout:
+            size_hint: 1, 1
+            id: box_2
+
+            BoxLayout:
+                orientation: "vertical"
+                padding: 5
+                size_hint: .4, 1
+
+                Label:
+                    font_size: 20
+                    text: "Блюдо:"
+                    color: 0.34, 0.14, 0.43, 1
+
+                Label:
+                    text: "Ингредиент:"
+                    font_size: 20
+                    color: 0.34, 0.14, 0.43, 1
+
+                Label:
+                    text: "Рецепт:"
+                    font_size: 20
+                    color: 0.34, 0.14, 0.43, 1
+
+            BoxLayout:
+                orientation: "vertical"
+                padding: 5
+                spacing: 10
+                size_hint: 1, 1
+                id: box_3
+
+                TextInput:
+                    id: c_ed_name
+                    size_hint: 1, .9
+                    multiline: False
+                    text: ""
+
+                TextInput:
+                    id: c_ed_ingredient
+                    size_hint: 1, .9
+                    multiline: False
+                    text: ""
+
+                TextInput:
+                    id: c_ed_recipe
+                    size_hint: 1, .9
+                    multiline: False
+                    text: ""
+
+        Button:
+            size_hint: 1, .2
+            text: "Ввод"
+            font_size: 20
+            disabled: False
+            on_press: app.controller.edit(c_ed_name, c_ed_ingredient, c_ed_recipe, status, app.current_id)
+            color: 0.34, 0.14, 0.43
+            background_color: 0.82, 0.43, 1, 1
+            background_normal: ''
+
+        Label:
+            id: status
+            text: "Статус"
+            color: 0.34, 0.14, 0.43
+            font_size: 20
+            size_hint: 1, .2
+
+        Button:
+            size_hint: 1, .2
+            text: "Закрыть"
+            font_size: 20
+            disabled: False
+            on_press: root.dismiss()
+            color: 0.34, 0.14, 0.43
+            background_color: 0.82, 0.43, 1, 1
+            background_normal: ''
+
+<Recipe>
+    BoxLayout:
+        orientation: "vertical"
+        padding: 5
+        id: bl_1
+
+        GridLayout:
+            cols: 2
+            id: gl_1
+
+            BoxLayout:
+                orientation: "vertical"
+                padding: 5
+                background_color: 1, 0, 0, 1
+                background_normal: ''
+                id: bl_2
+
+                BoxLayout:
+                    padding: 5
+                    size_hint: 1, .1
+
+                    Label:
+                        font_size: 14
+                        text: "Номер рецепта"
+                        color: 0.34, 0.14, 0.43
+
+                    Label:
+                        font_size: 14
+                        text: "Раскладка"
+                        color: 0.34, 0.14, 0.43
+
+                    Label:
+                        font_size: 14
+                        text: "Название рецепта"
+                        color: 0.34, 0.14, 0.43
+
+                    Label:
+                        font_size: 14
+                        text: "Автор"
+                        color: 0.34, 0.14, 0.43
+
+                    Label:
+                        font_size: 14
+                        text: ""
+                        color: 0.34, 0.14, 0.43
+                        size_hint: .2, 1
+                    Label:
+                        font_size: 14
+                        text: ""
+                        color: 0.34, 0.14, 0.43
+                        size_hint: .2, 1
+                BoxLayout:
+
+                    GridLayout:
+                        cols: 4
+                        id: gl_recipe1
+
+                    GridLayout:
+                        cols: 2
+                        id: gl_recipe2
+                        size_hint: .1, 1
+
+                BoxLayout:
+                    padding: 5
+                    spacing: 5
+                    size_hint: 1, .1
+
+                    Button:
+                        color: 0, 0, 0, 1
+                        text: "<-"
+                        font_size: 14
+                        disabled: False
+                        on_press: app.to_x_page(current_page, '-')
+                        color: 0.34, 0.14, 0.43
+                        background_color: 0.82, 0.43, 1, 1
+                        background_normal: ''
+
+                    Button:
+                        color: 0, 0, 0, 1
+                        text: "1"
+                        font_size: 14
+                        disabled: False
+                        on_press: app.to_first_page(current_page)
+                        color: 0.34, 0.14, 0.43
+                        background_color: 0.82, 0.43, 1, 1
+                        background_normal: ''
+
+                    Label:
+                        id: current_page
+                        font_size: 20
+                        text: "1"
+                        color: 0.34, 0.14, 0.43
+
+                    Button:
+                        id: last_page
+                        color: 0, 0, 0, 1
+                        text: "1"
+                        font_size: 14
+                        disabled: False
+                        on_press: app.to_last_page(current_page)
+                        color: 0.34, 0.14, 0.43
+                        background_color: 0.82, 0.43, 1, 1
+                        background_normal: ''
+
+                    Button:
+                        color: 0, 0, 0, 1
+                        text: "->"
+                        font_size: 14
+                        disabled: False
+                        on_press: app.to_x_page_r(current_page, '+')
+                        color: 0.34, 0.14, 0.43
+                        background_color: 0.82, 0.43, 1, 1
+                        background_normal: ''
+                        radius: [40]
+
+
+
+            BoxLayout:
+                orientation: "vertical"
+                padding: 9
+                size_hint: .2, 1
+
+                Label:
+                    id: number_record
+                    size_hint: 1, .1
+                    text: "Кол-во записей: 0"
+                    color: 0.34, 0.14, 0.43, 1
+
+                Label:
+                    size_hint: 1, .1
+                    text: "Кол-во на страницу:"
+                    color: 0.34, 0.14, 0.43, 1
+
+
+                BoxLayout:
+                    size_hint: 1, .1
+                    spacing: 5
+
+                    Label:
+                        size_hint: 1, .1
+                        text: "5"
+                        color: 0.34, 0.14, 0.43, 1
+
+                    Label:
+                        size_hint: 1, .1
+                        text: "10"
+                        color: 0.34, 0.14, 0.43, 1
+                    Label:
+                        size_hint: 1, .1
+                        text: "20"
+                        color: 0.34, 0.14, 0.43, 1
+
+
+
+                BoxLayout:
+                    size_hint: 1, .1
+                    spacing: 5
+
+                    CheckBox:
+                        group:"num_record_1"
+                        active: "down"
+                        on_active: app.to_x_record_r(5)
+                        color: 0.34, 0.14, 0.43
+
+                    CheckBox:
+                        group:"num_record_1"
+                        on_active: app.to_x_record_r(10)
+                        color: 0.34, 0.14, 0.43
+
+                    CheckBox:
+                        group:"num_record_1"
+                        on_active: app.to_x_record_r(20)
+                        color: 0.34, 0.14, 0.43
+
+                Button:
+                    color: 0, 0, 0, 1
+                    text: "Добавить рецепт"
+                    font_size: 14
+                    disabled: False
+                    on_press:Factory.EnterRecipePopup().open()
+                    color: 0.34, 0.14, 0.43
+                    background_color: 0.82, 0.43, 1, 1
+                    background_normal: ''
+                    size_hint: 1, .15
+
+                Widget:
+                    text: ""
+<EnterRecipePopup@Popup>:
+    background: ''
+    background_color: 0.67, 0.97, 0.7, 1
+    title_color: 0.2, 0.36, 0.21, 1
+    auto_dismiss: False
+    title: "Добавление данных"
+    size_hint: .6, .6
+
+    BoxLayout:
+        orientation: "vertical"
+        padding: 25, 0, 0, 0
+        GridLayout:
+            cols: 2
+            id: gl_1
+
+            BoxLayout:
+                orientation: "vertical"
+                padding: 5
+                background_color: 1, 0, 0, 1
+                background_normal: ''
+                id: bl_2
+
+                BoxLayout:
+                    padding: 5
+                    size_hint: 1, .05
+
+                    Label:
+                        font_size: 14
+                        text: "Номер рецепта"
+                        color: 0.34, 0.14, 0.43
+
+                    Label:
+                        font_size: 14
+                        text: "Раскладка"
+                        color: 0.34, 0.14, 0.43
+
+                    Label:
+                        font_size: 14
+                        text: "Название рецепта"
+                        color: 0.34, 0.14, 0.43
+
+                    Label:
+                        font_size: 14
+                        text: "Автор"
+                        color: 0.34, 0.14, 0.43
+
+
+                BoxLayout:
+                    TextInput:
+                        id: recipe_1
+                        multiline: False
+                        size_hint: 1, .3
+
+                    TextInput:
+                        id: recipe_2
+                        multiline: False
+                        size_hint: 1, .3
+
+                    TextInput:
+                        id: recipe_3
+                        multiline: False
+                        size_hint: 1, .3
+
+                    TextInput:
+                        id: recipe_4
+                        multiline: False
+                        size_hint: 1, .3
+
+        Button:
+            color: 0.2, 0.36, 0.21
+            background_color: 0.67, 0.97, 0.7, 1
+            background_normal: ''
+            text: "Ввод"
+            font_size: 20
+            disabled: False
+            size_hint: 1, .18
+            on_press: app.controller.add_recipe(recipe_1, recipe_2, recipe_3, recipe_4, status)
+
+        Label:
+            id: status
+            text: "Статус"
+            color: 0.34, 0.14, 0.43
+            font_size: 20
+            size_hint: 1, .2
+
+        Button:
+            color: 0.2, 0.36, 0.21
+            background_color: 0.67, 0.97, 0.7, 1
+            background_normal: ''
+            text: "Выход"
+            font_size: 20
+            disabled: False
+            size_hint: 1, .18
+            on_press: root.dismiss()
+
+<EditRecipePopup@Popup>:
+    background: ''
+    background_color: 0.92, 0.75, 1
+    title_color: 0.34, 0.14, 0.43, 1
+    auto_dismiss: False
+    title: "Редактирование рецептов"
+    size_hint: 1, .8
+    name: 'edit_recipe_popup'
+    id: edit_recipe_popup
+
+    BoxLayout:
+        orientation: "vertical"
+        padding: 10
+        id: box_1
+
+        Label:
+            font_size: 28
+            text: "Введите данные"
+            color: 0.34, 0.14, 0.43, 1
+            size_hint: 1, .1
+
+        BoxLayout:
+            size_hint: 1, 1
+            id: box_2
+
+            BoxLayout:
+                orientation: "vertical"
+                padding: 5
+                size_hint: .4, 1
+
+                Label:
+                    font_size: 20
+                    text: "Номер рецепта:"
+                    color: 0.34, 0.14, 0.43, 1
+
+                Label:
+                    text: "Раскладка:"
+                    font_size: 20
+                    color: 0.34, 0.14, 0.43, 1
+
+                Label:
+                    text: "Название рецепта:"
+                    font_size: 20
+                    color: 0.34, 0.14, 0.43, 1
+
+                Label:
+                    text: "Автор:"
+                    font_size: 20
+                    color: 0.34, 0.14, 0.43, 1
+
+            BoxLayout:
+                orientation: "vertical"
+                padding: 5
+                spacing: 10
+                size_hint: 1, 1
+                id: box_3
+
+                TextInput:
+                    id: c_ed_rec1
+                    size_hint: 1, .9
+                    multiline: False
+                    text: ""
+
+                TextInput:
+                    id: c_ed_rec2
+                    size_hint: 1, .9
+                    multiline: False
+                    text: ""
+
+                TextInput:
+                    id: c_ed_rec3
+                    size_hint: 1, .9
+                    multiline: False
+                    text: ""
+
+                TextInput:
+                    id: c_ed_rec4
+                    size_hint: 1, .9
+                    multiline: False
+                    text: ""
+
+        Button:
+            size_hint: 1, .2
+            text: "Ввод"
+            font_size: 20
+            disabled: False
+            on_press: app.controller.edit_recipe(c_ed_rec1, c_ed_rec3, c_ed_rec2, c_ed_rec4, status, app.current_id)
+            color: 0.34, 0.14, 0.43
+            background_color: 0.82, 0.43, 1, 1
+            background_normal: ''
+
+        Label:
+            id: status
+            text: "Статус"
+            color: 0.34, 0.14, 0.43
+            font_size: 20
+            size_hint: 1, .2
+
+        Button:
+            size_hint: 1, .2
+            text: "Закрыть"
+            font_size: 20
+            disabled: False
+            on_press: root.dismiss()
+            color: 0.34, 0.14, 0.43
+            background_color: 0.82, 0.43, 1, 1
+            background_normal: ''
+<Provider>
+    BoxLayout:
+        orientation: "vertical"
+        padding: 5
+        id: bl_1
+
+        GridLayout:
+            cols: 2
+            id: gl_1
+
+            BoxLayout:
+                orientation: "vertical"
+                padding: 5
+                background_color: 1, 0, 0, 1
+                background_normal: ''
+                id: bl_2
+
+                BoxLayout:
+                    padding: 5
+                    size_hint: 1, .1
+
+                    Label:
+                        font_size: 14
+                        text: "Код"
+                        color: 0.34, 0.14, 0.43
+
+                    Label:
+                        font_size: 14
+                        text: "Название"
+                        color: 0.34, 0.14, 0.43
+
+                    Label:
+                        font_size: 14
+                        text: "Адрес"
+                        color: 0.34, 0.14, 0.43
+
+                    Label:
+                        font_size: 14
+                        text: "Телефон"
+                        color: 0.34, 0.14, 0.43
+
+                    Label:
+                        font_size: 14
+                        text: ""
+                        color: 0.34, 0.14, 0.43
+                        size_hint: .2, 1
+                    Label:
+                        font_size: 14
+                        text: ""
+                        color: 0.34, 0.14, 0.43
+                        size_hint: .2, 1
+                BoxLayout:
+
+                    GridLayout:
+                        cols: 4
+                        id: gl_provider1
+
+                    GridLayout:
+                        cols: 2
+                        id: gl_provider2
+                        size_hint: .1, 1
+
+                BoxLayout:
+                    padding: 5
+                    spacing: 5
+                    size_hint: 1, .1
+
+                    Button:
+                        color: 0, 0, 0, 1
+                        text: "<-"
+                        font_size: 14
+                        disabled: False
+                        on_press: app.to_x_page(current_page, '-')
+                        color: 0.34, 0.14, 0.43
+                        background_color: 0.82, 0.43, 1, 1
+                        background_normal: ''
+
+                    Button:
+                        color: 0, 0, 0, 1
+                        text: "1"
+                        font_size: 14
+                        disabled: False
+                        on_press: app.to_first_page(current_page)
+                        color: 0.34, 0.14, 0.43
+                        background_color: 0.82, 0.43, 1, 1
+                        background_normal: ''
+
+                    Label:
+                        id: current_page
+                        font_size: 20
+                        text: "1"
+                        color: 0.34, 0.14, 0.43
+
+                    Button:
+                        id: last_page
+                        color: 0, 0, 0, 1
+                        text: "1"
+                        font_size: 14
+                        disabled: False
+                        on_press: app.to_last_page(current_page)
+                        color: 0.34, 0.14, 0.43
+                        background_color: 0.82, 0.43, 1, 1
+                        background_normal: ''
+
+                    Button:
+                        color: 0, 0, 0, 1
+                        text: "->"
+                        font_size: 14
+                        disabled: False
+                        on_press: app.to_x_page_p(current_page, '+')
+                        color: 0.34, 0.14, 0.43
+                        background_color: 0.82, 0.43, 1, 1
+                        background_normal: ''
+                        radius: [40]
+
+
+
+            BoxLayout:
+                orientation: "vertical"
+                padding: 9
+                size_hint: .2, 1
+
+                Label:
+                    id: number_record
+                    size_hint: 1, .1
+                    text: "Кол-во записей: 0"
+                    color: 0.34, 0.14, 0.43, 1
+
+                Label:
+                    size_hint: 1, .1
+                    text: "Кол-во на страницу:"
+                    color: 0.34, 0.14, 0.43, 1
+
+
+                BoxLayout:
+                    size_hint: 1, .1
+                    spacing: 5
+
+                    Label:
+                        size_hint: 1, .1
+                        text: "5"
+                        color: 0.34, 0.14, 0.43, 1
+
+                    Label:
+                        size_hint: 1, .1
+                        text: "10"
+                        color: 0.34, 0.14, 0.43, 1
+                    Label:
+                        size_hint: 1, .1
+                        text: "20"
+                        color: 0.34, 0.14, 0.43, 1
+
+
+
+                BoxLayout:
+                    size_hint: 1, .1
+                    spacing: 5
+
+                    CheckBox:
+                        group:"num_record_1_1"
+                        active: "down"
+                        on_active: app.to_x_record_p(5)
+                        color: 0.34, 0.14, 0.43
+
+                    CheckBox:
+                        group:"num_record_1_1"
+                        on_active: app.to_x_record_p(10)
+                        color: 0.34, 0.14, 0.43
+
+                    CheckBox:
+                        group:"num_record_1"
+                        on_active: app.to_x_record_p(20)
+                        color: 0.34, 0.14, 0.43
+
+                Button:
+                    color: 0, 0, 0, 1
+                    text: "Добавить "
+                    font_size: 14
+                    disabled: False
+                    on_press:Factory.EnterProviderPopup().open()
+                    color: 0.34, 0.14, 0.43
+                    background_color: 0.82, 0.43, 1, 1
+                    background_normal: ''
+                    size_hint: 1, .15
+
+                Widget:
+                    text: ""
+<EnterProviderPopup@Popup>:
+    background: ''
+    background_color: 0.67, 0.97, 0.7, 1
+    title_color: 0.2, 0.36, 0.21, 1
+    auto_dismiss: False
+    title: "Добавление данных"
+    size_hint: .6, .6
+
+    BoxLayout:
+        orientation: "vertical"
+        padding: 25, 0, 0, 0
+        GridLayout:
+            cols: 2
+            id: gl_1
+
+            BoxLayout:
+                orientation: "vertical"
+                padding: 5
+                background_color: 1, 0, 0, 1
+                background_normal: ''
+                id: bl_2
+
+                BoxLayout:
+                    padding: 5
+                    size_hint: 1, .05
+
+                    Label:
+                        font_size: 14
+                        text: "Код"
+                        color: 0.34, 0.14, 0.43
+
+                    Label:
+                        font_size: 14
+                        text: "Название"
+                        color: 0.34, 0.14, 0.43
+
+                    Label:
+                        font_size: 14
+                        text: "Адрес"
+                        color: 0.34, 0.14, 0.43
+
+                    Label:
+                        font_size: 14
+                        text: "Телефон"
+                        color: 0.34, 0.14, 0.43
+
+
+                BoxLayout:
+                    TextInput:
+                        id: provider_1
+                        multiline: False
+                        size_hint: 1, .3
+
+                    TextInput:
+                        id: provider_2
+                        multiline: False
+                        size_hint: 1, .3
+
+                    TextInput:
+                        id: provider_3
+                        multiline: False
+                        size_hint: 1, .3
+
+                    TextInput:
+                        id: provider_4
+                        multiline: False
+                        size_hint: 1, .3
+
+        Button:
+            color: 0.2, 0.36, 0.21
+            background_color: 0.67, 0.97, 0.7, 1
+            background_normal: ''
+            text: "Ввод"
+            font_size: 20
+            disabled: False
+            size_hint: 1, .18
+            on_press: app.controller.add_provider(provider_1, provider_2, provider_3, provider_4, status)
+
+        Label:
+            id: status
+            text: "Статус"
+            color: 0.34, 0.14, 0.43
+            font_size: 20
+            size_hint: 1, .2
+
+        Button:
+            color: 0.2, 0.36, 0.21
+            background_color: 0.67, 0.97, 0.7, 1
+            background_normal: ''
+            text: "Выход"
+            font_size: 20
+            disabled: False
+            size_hint: 1, .18
+            on_press: root.dismiss()
+
+<EditProviderPopup@Popup>:
+    background: ''
+    background_color: 0.92, 0.75, 1
+    title_color: 0.34, 0.14, 0.43, 1
+    auto_dismiss: False
+    title: "Редактирование поставщиков"
+    size_hint: 1, .8
+    name: 'edit_provider_popup'
+    id: edit_provider_popup
+
+    BoxLayout:
+        orientation: "vertical"
+        padding: 10
+        id: box_1
+
+        Label:
+            font_size: 28
+            text: "Введите данные"
+            color: 0.34, 0.14, 0.43, 1
+            size_hint: 1, .1
+
+        BoxLayout:
+            size_hint: 1, 1
+            id: box_2
+
+            BoxLayout:
+                orientation: "vertical"
+                padding: 5
+                size_hint: .4, 1
+
+                Label:
+                    font_size: 20
+                    text: "Код:"
+                    color: 0.34, 0.14, 0.43, 1
+
+                Label:
+                    text: "Название:"
+                    font_size: 20
+                    color: 0.34, 0.14, 0.43, 1
+
+                Label:
+                    text: "Адрес:"
+                    font_size: 20
+                    color: 0.34, 0.14, 0.43, 1
+
+                Label:
+                    text: "Телефон:"
+                    font_size: 20
+                    color: 0.34, 0.14, 0.43, 1
+
+            BoxLayout:
+                orientation: "vertical"
+                padding: 5
+                spacing: 10
+                size_hint: 1, 1
+                id: box_3
+
+                TextInput:
+                    id: c_ed_rec1
+                    size_hint: 1, .9
+                    multiline: False
+                    text: ""
+
+                TextInput:
+                    id: c_ed_rec2
+                    size_hint: 1, .9
+                    multiline: False
+                    text: ""
+
+                TextInput:
+                    id: c_ed_rec3
+                    size_hint: 1, .9
+                    multiline: False
+                    text: ""
+
+                TextInput:
+                    id: c_ed_rec4
+                    size_hint: 1, .9
+                    multiline: False
+                    text: ""
+
+        Button:
+            size_hint: 1, .2
+            text: "Ввод"
+            font_size: 20
+            disabled: False
+            on_press: app.controller.edit_provider(c_ed_rec1, c_ed_rec3, c_ed_rec2, c_ed_rec4, status, app.current_id)
+            color: 0.34, 0.14, 0.43
+            background_color: 0.82, 0.43, 1, 1
+            background_normal: ''
+
+        Label:
+            id: status
+            text: "Статус"
+            color: 0.34, 0.14, 0.43
+            font_size: 20
+            size_hint: 1, .2
+
+        Button:
+            size_hint: 1, .2
+            text: "Закрыть"
+            font_size: 20
+            disabled: False
+            on_press: root.dismiss()
+            color: 0.34, 0.14, 0.43
+            background_color: 0.82, 0.43, 1, 1
+            background_normal: ''
+<Price>
+    BoxLayout:
+        orientation: "vertical"
+        padding: 5
+        id: bl_1
+
+        GridLayout:
+            cols: 2
+            id: gl_1
+
+            BoxLayout:
+                orientation: "vertical"
+                padding: 5
+                background_color: 1, 0, 0, 1
+                background_normal: ''
+                id: bl_2
+
+                BoxLayout:
+                    padding: 5
+                    size_hint: 1, .1
+
+                    Label:
+                        font_size: 14
+                        text: "Дата"
+                        color: 0.34, 0.14, 0.43
+
+                    Label:
+                        font_size: 14
+                        text: "Адрес"
+                        color: 0.34, 0.14, 0.43
+
+                    Label:
+                        font_size: 14
+                        text: "Телефон"
+                        color: 0.34, 0.14, 0.43
+
+                    Label:
+                        font_size: 14
+                        text: "Ингредиент"
+                        color: 0.34, 0.14, 0.43
+
+                    Label:
+                        font_size: 14
+                        text: "Цена"
+                        color: 0.34, 0.14, 0.43
+                BoxLayout:
+
+                    GridLayout:
+                        cols: 5
+                        id: gl_price1
+
+                BoxLayout:
+                    padding: 5
+                    spacing: 5
+                    size_hint: 1, .1
+
+                    Button:
+                        color: 0, 0, 0, 1
+                        text: "<-"
+                        font_size: 14
+                        disabled: False
+                        on_press: app.to_x_page(current_page, '-')
+                        color: 0.34, 0.14, 0.43
+                        background_color: 0.82, 0.43, 1, 1
+                        background_normal: ''
+
+                    Button:
+                        color: 0, 0, 0, 1
+                        text: "1"
+                        font_size: 14
+                        disabled: False
+                        on_press: app.to_first_page(current_page)
+                        color: 0.34, 0.14, 0.43
+                        background_color: 0.82, 0.43, 1, 1
+                        background_normal: ''
+
+                    Label:
+                        id: current_page
+                        font_size: 20
+                        text: "1"
+                        color: 0.34, 0.14, 0.43
+
+                    Button:
+                        id: last_page
+                        color: 0, 0, 0, 1
+                        text: "1"
+                        font_size: 14
+                        disabled: False
+                        on_press: app.to_last_page(current_page)
+                        color: 0.34, 0.14, 0.43
+                        background_color: 0.82, 0.43, 1, 1
+                        background_normal: ''
+
+                    Button:
+                        color: 0, 0, 0, 1
+                        text: "->"
+                        font_size: 14
+                        disabled: False
+                        on_press: app.to_x_page_p(current_page, '+')
+                        color: 0.34, 0.14, 0.43
+                        background_color: 0.82, 0.43, 1, 1
+                        background_normal: ''
+                        radius: [40]
+
+
+
+            BoxLayout:
+                orientation: "vertical"
+                padding: 9
+                size_hint: .2, 1
+
+                Label:
+                    id: number_record
+                    size_hint: 1, .1
+                    text: "Кол-во записей: 0"
+                    color: 0.34, 0.14, 0.43, 1
+
+                Label:
+                    size_hint: 1, .1
+                    text: "Кол-во на страницу:"
+                    color: 0.34, 0.14, 0.43, 1
+
+
+                BoxLayout:
+                    size_hint: 1, .1
+                    spacing: 5
+
+                    Label:
+                        size_hint: 1, .1
+                        text: "5"
+                        color: 0.34, 0.14, 0.43, 1
+
+                    Label:
+                        size_hint: 1, .1
+                        text: "10"
+                        color: 0.34, 0.14, 0.43, 1
+                    Label:
+                        size_hint: 1, .1
+                        text: "20"
+                        color: 0.34, 0.14, 0.43, 1
+
+
+
+                BoxLayout:
+                    size_hint: 1, .1
+                    spacing: 5
+
+                    CheckBox:
+                        group:"num_record_1_1_1"
+                        active: "down"
+                        on_active: app.to_x_record_p(5)
+                        color: 0.34, 0.14, 0.43
+
+                    CheckBox:
+                        group:"num_record_1_1_1"
+                        on_active: app.to_x_record_p(10)
+                        color: 0.34, 0.14, 0.43
+
+                    CheckBox:
+                        group:"num_record_1_1_1"
+                        on_active: app.to_x_record_p(20)
+                        color: 0.34, 0.14, 0.43
+                Widget:
+                    text: ""
+<ChoosePricePopup@Popup>:
+    background: ''
+    background_color: 0.92, 0.75, 1
+    title_color: 0.34, 0.14, 0.43, 1
+    auto_dismiss: False
+    title: "Данные поставщика"
+    size_hint: 1, .8
+    name: 'choose_price_popup'
+    id: choose_price_popup
+
+    BoxLayout:
+        orientation: "vertical"
+        padding: 10
+        id: box_1
+
+        Label:
+            font_size: 28
+            text: "Введите данные"
+            color: 0.34, 0.14, 0.43, 1
+            size_hint: 1, .1
+
+        BoxLayout:
+            size_hint: 1, 1
+            id: box_2
+
+            BoxLayout:
+                orientation: "vertical"
+                padding: 5
+                size_hint: .4, 1
+
+                Label:
+                    font_size: 20
+                    text: "Поставщик:"
+                    color: 0.34, 0.14, 0.43, 1
+
+                Label:
+                    text: "Дата начала:"
+                    font_size: 20
+                    color: 0.34, 0.14, 0.43, 1
+
+                Label:
+                    text: "Дата конца:"
+                    font_size: 20
+                    color: 0.34, 0.14, 0.43, 1
+
+            BoxLayout:
+                orientation: "vertical"
+                padding: 5
+                spacing: 10
+                size_hint: 1, 1
+                id: box_3
+
+                TextInput:
+                    id: c_ed_price1
+                    size_hint: 1, .9
+                    multiline: False
+                    text: ""
+
+                TextInput:
+                    id: c_ed_price2
+                    size_hint: 1, .9
+                    multiline: False
+                    text: ""
+
+                TextInput:
+                    id: c_ed_price3
+                    size_hint: 1, .9
+                    multiline: False
+                    text: ""
+
+        Button:
+            size_hint: 1, .2
+            text: "Ввод"
+            font_size: 20
+            disabled: False
+            on_press: app.connect_table_price(c_ed_price1, c_ed_price2, c_ed_price3)
+            color: 0.34, 0.14, 0.43
+            background_color: 0.82, 0.43, 1, 1
+            background_normal: ''
+
+        Button:
+            color: 0.2, 0.36, 0.21
+            background_color: 0.67, 0.97, 0.7, 1
+            background_normal: ''
+            text: "Выход"
+            font_size: 20
+            disabled: False
+            size_hint: 1, .18
+            on_press: root.dismiss()
+<Calories>
+    BoxLayout:
+        orientation: "vertical"
+        padding: 5
+        id: bl_1
+
+        GridLayout:
+            cols: 2
+            id: gl_1
+
+            BoxLayout:
+                orientation: "vertical"
+                padding: 5
+                background_color: 1, 0, 0, 1
+                background_normal: ''
+                id: bl_2
+
+                BoxLayout:
+                    padding: 5
+                    size_hint: 1, .1
+
+                    Label:
+                        font_size: 14
+                        text: "Блюдо"
+                        color: 0.34, 0.14, 0.43
+
+                    Label:
+                        font_size: 14
+                        text: "Калорийность"
+                        color: 0.34, 0.14, 0.43
+
+                BoxLayout:
+
+                    GridLayout:
+                        cols: 2
+                        id: gl_cal1
+
+                BoxLayout:
+                    padding: 5
+                    spacing: 5
+                    size_hint: 1, .1
+
+                    Button:
+                        color: 0, 0, 0, 1
+                        text: "<-"
+                        font_size: 14
+                        disabled: False
+                        on_press: app.to_x_page(current_page, '-')
+                        color: 0.34, 0.14, 0.43
+                        background_color: 0.82, 0.43, 1, 1
+                        background_normal: ''
+
+                    Button:
+                        color: 0, 0, 0, 1
+                        text: "1"
+                        font_size: 14
+                        disabled: False
+                        on_press: app.to_first_page(current_page)
+                        color: 0.34, 0.14, 0.43
+                        background_color: 0.82, 0.43, 1, 1
+                        background_normal: ''
+
+                    Label:
+                        id: current_page
+                        font_size: 20
+                        text: "1"
+                        color: 0.34, 0.14, 0.43
+
+                    Button:
+                        id: last_page
+                        color: 0, 0, 0, 1
+                        text: "1"
+                        font_size: 14
+                        disabled: False
+                        on_press: app.to_last_page(current_page)
+                        color: 0.34, 0.14, 0.43
+                        background_color: 0.82, 0.43, 1, 1
+                        background_normal: ''
+
+                    Button:
+                        color: 0, 0, 0, 1
+                        text: "->"
+                        font_size: 14
+                        disabled: False
+                        on_press: app.to_x_page_p(current_page, '+')
+                        color: 0.34, 0.14, 0.43
+                        background_color: 0.82, 0.43, 1, 1
+                        background_normal: ''
+                        radius: [40]
+
+<Prod_Rec>
+    BoxLayout:
+        orientation: "vertical"
+        padding: 5
+        id: bl_1
+
+        GridLayout:
+            cols: 2
+            id: gl_1
+
+            BoxLayout:
+                orientation: "vertical"
+                padding: 5
+                background_color: 1, 0, 0, 1
+                background_normal: ''
+                id: bl_2
+
+                BoxLayout:
+                    padding: 5
+                    size_hint: 1, .1
+
+                    Label:
+                        font_size: 14
+                        text: "Блюдо"
+                        color: 0.34, 0.14, 0.43
+
+                    Label:
+                        font_size: 14
+                        text: "Рецепт"
+                        color: 0.34, 0.14, 0.43
+
+                BoxLayout:
+
+                    GridLayout:
+                        cols: 2
+                        id: gl_procrec1
+
+                BoxLayout:
+                    padding: 5
+                    spacing: 5
+                    size_hint: 1, .1
+
+                    Button:
+                        color: 0, 0, 0, 1
+                        text: "<-"
+                        font_size: 14
+                        disabled: False
+                        on_press: app.to_x_page(current_page, '-')
+                        color: 0.34, 0.14, 0.43
+                        background_color: 0.82, 0.43, 1, 1
+                        background_normal: ''
+
+                    Button:
+                        color: 0, 0, 0, 1
+                        text: "1"
+                        font_size: 14
+                        disabled: False
+                        on_press: app.to_first_page(current_page)
+                        color: 0.34, 0.14, 0.43
+                        background_color: 0.82, 0.43, 1, 1
+                        background_normal: ''
+
+                    Label:
+                        id: current_page
+                        font_size: 20
+                        text: "1"
+                        color: 0.34, 0.14, 0.43
+
+                    Button:
+                        id: last_page
+                        color: 0, 0, 0, 1
+                        text: "1"
+                        font_size: 14
+                        disabled: False
+                        on_press: app.to_last_page(current_page)
+                        color: 0.34, 0.14, 0.43
+                        background_color: 0.82, 0.43, 1, 1
+                        background_normal: ''
+
+                    Button:
+                        color: 0, 0, 0, 1
+                        text: "->"
+                        font_size: 14
+                        disabled: False
+                        on_press: app.to_x_page_p(current_page, '+')
+                        color: 0.34, 0.14, 0.43
+                        background_color: 0.82, 0.43, 1, 1
+                        background_normal: ''
+                        radius: [40]
+
+
+            BoxLayout:
+                orientation: "vertical"
+                padding: 9
+                size_hint: .2, 1
+
+                Label:
+                    id: number_record
+                    size_hint: 1, .1
+                    text: "Кол-во записей: 0"
+                    color: 0.34, 0.14, 0.43, 1
+
+                Label:
+                    size_hint: 1, .1
+                    text: "Кол-во на страницу:"
+                    color: 0.34, 0.14, 0.43, 1
+
+
+                BoxLayout:
+                    size_hint: 1, .1
+                    spacing: 5
+
+                    Label:
+                        size_hint: 1, .1
+                        text: "5"
+                        color: 0.34, 0.14, 0.43, 1
+
+                    Label:
+                        size_hint: 1, .1
+                        text: "10"
+                        color: 0.34, 0.14, 0.43, 1
+                    Label:
+                        size_hint: 1, .1
+                        text: "20"
+                        color: 0.34, 0.14, 0.43, 1
+
+
+
+                BoxLayout:
+                    size_hint: 1, .1
+                    spacing: 5
+
+                    CheckBox:
+                        group:"num_record_1_1_1_1111"
+                        active: "down"
+                        on_active: app.to_x_record_p(5)
+                        color: 0.34, 0.14, 0.43
+
+                    CheckBox:
+                        group:"num_record_1_1_1_1111"
+                        on_active: app.to_x_record_p(10)
+                        color: 0.34, 0.14, 0.43
+
+                    CheckBox:
+                        group:"num_record_1_1_1_1111"
+                        on_active: app.to_x_record_p(20)
+                        color: 0.34, 0.14, 0.43
+                Widget:
+                    text: ""
+
